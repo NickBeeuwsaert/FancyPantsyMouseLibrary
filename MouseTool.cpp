@@ -35,14 +35,14 @@ int MouseTool::GetMouseState(int *x, int *y){
         _x = cursor.x;
         _y = cursor.y;
     #elif __WIN32__
-        LPPOINT point;
+        POINT point;
         GetCursorPos(&point);
         _x = point.x;
         _y = point.y;
-
-        if(GetAsyncKeyState(VK_RBUTTON) != 0)state |= MT_RBUTTON
-        if(GetAsyncKeyState(VK_MBUTTON) != 0)state |= MT_MBUTTON
-        if(GetAsyncKeyState(VK_LBUTTON) != 0)state |= MT_LBUTTON
+        //printf("%d %d %d\n",!(GetAsyncKeyState(VK_RBUTTON) & 1<<16),GetAsyncKeyState(VK_MBUTTON),GetKeyState(VK_LBUTTON));
+        if(GetAsyncKeyState(VK_RBUTTON) & 1 << 16) state |= MT_RBUTTON;
+        if(GetAsyncKeyState(VK_MBUTTON) & 1 << 16) state |= MT_MBUTTON;
+        if(GetAsyncKeyState(VK_LBUTTON) & 1 << 16) state |= MT_LBUTTON;
     #else
         XEvent evt;
         XQueryPointer(dpy, root_window, &evt.xbutton.root, &evt.xbutton.root, &_x, &_y, &evt.xbutton.x, &evt.xbutton.y, &evt.xbutton.state);

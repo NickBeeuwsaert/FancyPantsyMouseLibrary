@@ -1,6 +1,10 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 //#undef __APPLE__
+#ifdef _WIN32
+#define __WIN32__
+#endif
+
 #ifdef __APPLE__
     #include <ApplicationServices/ApplicationServices.h>
 #elif __WIN32__
